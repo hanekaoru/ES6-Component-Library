@@ -167,5 +167,21 @@ $.extend({
                 location.reload();
             }, 1500);
         }
-    }
+    },
+    choose_cks: function (id, ids) {
+		if (ids == '0') {
+			$('#' + id + '').html('全部').attr('data-value', 0).parents('.dp-cks').find('.placeOrder_a9').addClass('placeOrder_a9_active');
+		} else {
+			var cks = ids.indexOf(',') != -1 ? ids.split(',') : [ids];
+			var htm = [];
+
+			$('#' + id + '').attr('data-value', ids).parents('.dp-cks').find('.placeOrder_a9').removeClass('placeOrder_a9_active').each(function () {
+				if ($.inArray($(this).attr('data-value'), cks) != -1) {
+					htm.push($(this).html());
+					$(this).addClass('placeOrder_a9_active')
+				}
+			});
+			$('#' + id + '').html(htm.join(','));
+		}
+	}
 })
